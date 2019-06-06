@@ -1,0 +1,36 @@
+Relative Xpath:
+	Attribute Based:
+		//tagName[@Attribute = 'Attribute Value']
+		Ex: //form[@id = 'login']
+		//tagName[contains(@Attribute,'Attribute Value')]
+		//input[contains(@class,'decorative')]
+	Text Based:
+		//tagName[text() = 'text Value']
+		//h2[text() = 'Leaftaps Login']
+		//tagName[contains(text(),'text Value')]
+		//h2[contains(text(),'Login')]
+		Search by text()
+		//h2[text()[contains(.,'Demo Sales Manager')]]
+
+basic xpath/parent::tagname
+//input[@class='inputLogin']/parent::p
+
+basic xpath/following-sibling::tagname
+//p[@class='top']/following-sibling::p[2]
+
+basic xpath/following::tagname
+//h2[text()='Leaftaps Login']/following::p
+
+basic xpath/preceding-sibling::tagname
+//input[@class='inputLogin']/preceding-sibling::label
+
+basic xpath/preceding::tagname
+//p[@class='top']/preceding::h2
+//a[text()='New Task']/preceding::li[2]
+
+Collection xpath
+(xpath)[index]
+(//input[@class='inputLogin'])[2]
+
+basic xpath // basic xpath
+//div[@id='wrapper']//h2[text()='Leaftaps Login']
