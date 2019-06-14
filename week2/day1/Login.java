@@ -1,76 +1,41 @@
 package week2.day1;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 public class Login {
-
-	public static ChromeDriver driver;
-	static int i=0;
-	public static void main(String[] args) throws IOException {
-		driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.get("http://leaftaps.com/opentaps/control/main");
-		// Wait for the specified time then through the NoSuchElementException
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		takeSnap();
-		driver.findElement(By.id("username")).sendKeys("Demosalesmanager");
-		takeSnap();
-		driver.findElement(By.id("password")).sendKeys("crmsfa");
-		takeSnap();
-		// take snapshot
-		// store as flat file
-		File snapFile = driver.getScreenshotAs(OutputType.FILE);
-		// create a new file 
-		File dest = new File("./snaps/img.png");
-		// copy the flat file to the newly created file
-		FileUtils.copyFile(snapFile, dest);
-
-
-
-
-
-
-
-
-
-
-
-
+	@DataProvider(name= "fetch", parallel= true)
+	public String[][] dataP() {
+		final String[][] data = new String[4][2];
+		data[0][0] = "1";
+		data[0][1] = "crmsfa";
+		data[1][0] = "2";
+		data[1][1] = "crmsfa";
+		data[2][0] = "11";
+		data[2][1] = "crmsfa";
+		data[3][0] = "22";
+		data[3][1] = "crmsfa";
+		return data;
 	}
-
-	public static void takeSnap() {
-		File snapFile2 = driver.getScreenshotAs(OutputType.FILE);
-		File dest2 = new File("./snaps/img"+i+".png");
-		i++;
-		try {
-			FileUtils.copyFile(snapFile2, dest2);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	BrowserInstances instance ;
+	@BeforeMethod
+	public void before() {
+		instance= BrowserInstances.getInstance();
+		instance.setdriver();
+		instance.getDriver().get("http://leaftaps.com/opentaps/control/main");
+		instance.getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	@Test(dataProvider = "fetch")
+	public void main(String[] data) throws IOException, InterruptedException {
+		instance.getDriver().findElement(By.id("username")).sendKeys(data[0]);
+		instance.getDriver().findElement(By.id("password")).sendKeys(data[1]);
+		Thread.sleep(5000);
+		instance.getDriver().quit();
+	}
 }
