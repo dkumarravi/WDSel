@@ -1,22 +1,12 @@
 package steps;
 
-import java.util.concurrent.TimeUnit;
-
-import org.openqa.selenium.chrome.ChromeDriver;
-
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import hooks.PreAndPost;
 
-public class LoginSteps {
-	ChromeDriver driver;
-	@Given("Start application")
-	public void startApplication() {
-		 driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.get("http://leaftaps.com/opentaps/");
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-	}
+public class LoginSteps extends PreAndPost{
+	
 	@Given("Enter the username as {string}")
 	public void enterTheUsernameAsDemosalesmanager(String un) {
 	  driver.findElementById("username").sendKeys(un);

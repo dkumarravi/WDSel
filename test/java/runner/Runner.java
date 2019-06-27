@@ -6,15 +6,10 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 
 @CucumberOptions(
 		features = "src\\test\\java\\feature\\Login.feature",
-		glue = {"steps"},
-		dryRun= !false,
+		glue = {"steps", "hooks"},
+		dryRun= false,
 		snippets = SnippetType.CAMELCASE,
-		monochrome = true
-		)
-
-public class Runner extends 
-	AbstractTestNGCucumberTests{
-	
-	
-
-}
+		monochrome = true,
+		plugin= {"pretty",
+				"html:cucumberReports"})
+public class Runner extends AbstractTestNGCucumberTests{}

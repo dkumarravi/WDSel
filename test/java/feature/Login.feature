@@ -1,6 +1,5 @@
-Feature: Leaftap application 
-Background: 
-	Given Start application 
+Feature: Leaftap application
+
 Scenario Outline: Login with Demosalesmanager 
 	Given Enter the username as "<username>"
 	And Enter the password as "<pas>" 
